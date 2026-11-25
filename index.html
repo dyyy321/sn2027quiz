@@ -44,6 +44,7 @@ button:disabled{opacity:.4}.row button{flex:1}
 .strip .ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}.strip .no{background:var(--nobg);border-color:var(--no);color:var(--no)}.strip .cur{outline:2px solid var(--ac);outline-offset:1px}
 .stem{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:14px}
 .tr{white-space:pre-wrap;margin:10px 0 0}.tr b{color:var(--ac)}
+.un{width:100%;margin-top:10px;font-size:14px;color:var(--sub)}
 .note{font-size:12px;color:var(--sub);text-align:center;margin-top:16px}
 </style></head><body><div id="app"></div>
 <script>
@@ -52,11 +53,11 @@ const KEY="suneung2-v1";let S={};
 try{S=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const T={
-ko:{h:"2027 수능 제2외국어",sub:"과목을 고르면 문제를 한 문제씩 풀고, 바로 채점돼요.",go:"시작하기",cont:"이어서 풀기",rs:"초기화",rsq:"이 과목의 풀이 기록을 지울까요?",prog:(d,p,t)=>`${d}/30 문항 풀이 · ${d?p+"/"+t+"점":"미응시"}`,q:n=>`${n}번`,pt:p=>`${p}점`,pick:"정답을 선택하세요",ok:p=>`정답입니다! +${p}점`,no:(a,m)=>`오답입니다. 정답은 ${a}번 (내 답: ${m})`,prev:"← 이전",next:"다음 →",res:"결과 보기",rt:"결과",cnt:(d,c)=>`${d}문항 중 ${c}문항 정답`,skip:n=>` · 안 푼 문제 ${n}개`,rv:"다시 볼 문제",all:"모두 맞혔어요! 🎉",again:"처음부터 다시",hm:"과목 선택",sc:"현재 점수",zoom:"탭하면 닫기",note:"시험 문제는 한국어 원문 그대로 제공되며 번역되지 않아요.",
+ko:{h:"2027 수능 제2외국어",sub:"과목을 고르면 문제를 한 문제씩 풀고, 바로 채점돼요.",go:"시작하기",cont:"이어서 풀기",rs:"초기화",rsq:"이 과목의 풀이 기록을 지울까요?",prog:(d,p,t)=>`${d}/30 문항 풀이 · ${d?p+"/"+t+"점":"미응시"}`,q:n=>`${n}번`,pt:p=>`${p}점`,pick:"정답을 선택하세요",ok:p=>`정답입니다! +${p}점`,no:(a,m)=>`오답입니다. 정답은 ${a}번 (내 답: ${m})`,prev:"← 이전",next:"다음 →",res:"결과 보기",rt:"결과",cnt:(d,c)=>`${d}문항 중 ${c}문항 정답`,skip:n=>` · 안 푼 문제 ${n}개`,rv:"다시 볼 문제",all:"모두 맞혔어요! 🎉",again:"처음부터 다시",hm:"과목 선택",sc:"현재 점수",zoom:"탭하면 닫기",undo:"답 취소하고 다시 풀기",note:"시험 문제는 한국어 원문 그대로 제공되며 번역되지 않아요.",
  n:{zh:"중국어Ⅰ",ja:"일본어Ⅰ",han:"한문Ⅰ"}},
-en:{h:"2027 CSAT Second Foreign Language",sub:"Pick a subject, solve one question at a time, and get graded instantly.",go:"Start",cont:"Continue",rs:"Reset",rsq:"Clear your progress for this subject?",prog:(d,p,t)=>`${d}/30 answered · ${d?p+"/"+t+" pts":"Not started"}`,q:n=>`Q${n}`,pt:p=>`${p} pt${p>1?"s":""}`,pick:"Choose your answer",ok:p=>`Correct! +${p} pt${p>1?"s":""}`,no:(a,m)=>`Incorrect. The answer is ${a} (yours: ${m})`,prev:"← Prev",next:"Next →",res:"See results",rt:"Results",cnt:(d,c)=>`${c} correct out of ${d} answered`,skip:n=>` · ${n} unanswered`,rv:"Questions to review",all:"All correct! 🎉",again:"Start over",hm:"Subjects",sc:"Score",zoom:"Tap to close",note:"Each question’s instruction line is translated above the exam image. Passages and answer choices stay in the original language, and Korean text inside the exam image is translated in a box below it.",
+en:{h:"2027 CSAT Second Foreign Language",sub:"Pick a subject, solve one question at a time, and get graded instantly.",go:"Start",cont:"Continue",rs:"Reset",rsq:"Clear your progress for this subject?",prog:(d,p,t)=>`${d}/30 answered · ${d?p+"/"+t+" pts":"Not started"}`,q:n=>`Q${n}`,pt:p=>`${p} pt${p>1?"s":""}`,pick:"Choose your answer",ok:p=>`Correct! +${p} pt${p>1?"s":""}`,no:(a,m)=>`Incorrect. The answer is ${a} (yours: ${m})`,prev:"← Prev",next:"Next →",res:"See results",rt:"Results",cnt:(d,c)=>`${c} correct out of ${d} answered`,skip:n=>` · ${n} unanswered`,rv:"Questions to review",all:"All correct! 🎉",again:"Start over",hm:"Subjects",sc:"Score",zoom:"Tap to close",undo:"Cancel answer and retry",note:"Each question’s instruction line is translated above the exam image. Passages and answer choices stay in the original language, and Korean text inside the exam image is translated in a box below it.",
  n:{zh:"Chinese I",ja:"Japanese I",han:"Classical Chinese (Hanmun) I"}},
-yue:{h:"2027 韓國高考 第二外語",sub:"揀科目，一次做一題，即刻出答案。",go:"開始",cont:"繼續做",rs:"重置",rsq:"要唔要清除呢科嘅紀錄？",prog:(d,p,t)=>`${d}/30 題已做 · ${d?p+"/"+t+" 分":"未開始"}`,q:n=>`第${n}題`,pt:p=>`${p}分`,pick:"揀答案",ok:p=>`啱晒！+${p}分`,no:(a,m)=>`錯咗。答案係 ${a}（你揀咗 ${m}）`,prev:"← 上一題",next:"下一題 →",res:"睇結果",rt:"結果",cnt:(d,c)=>`做咗 ${d} 題，啱 ${c} 題`,skip:n=>` · 未做 ${n} 題`,rv:"要重溫嘅題目",all:"全部啱晒！🎉",again:"由頭再做",hm:"揀科目",sc:"而家分數",zoom:"撳一下關閉",note:"每題嘅題目指示已翻譯並顯示喺原卷圖片上面，文章同選項保留原文，圖片入面嘅韓文部分會翻譯並顯示喺下面。",
+yue:{h:"2027 韓國高考 第二外語",sub:"揀科目，一次做一題，即刻出答案。",go:"開始",cont:"繼續做",rs:"重置",rsq:"要唔要清除呢科嘅紀錄？",prog:(d,p,t)=>`${d}/30 題已做 · ${d?p+"/"+t+" 分":"未開始"}`,q:n=>`第${n}題`,pt:p=>`${p}分`,pick:"揀答案",ok:p=>`啱晒！+${p}分`,no:(a,m)=>`錯咗。答案係 ${a}（你揀咗 ${m}）`,prev:"← 上一題",next:"下一題 →",res:"睇結果",rt:"結果",cnt:(d,c)=>`做咗 ${d} 題，啱 ${c} 題`,skip:n=>` · 未做 ${n} 題`,rv:"要重溫嘅題目",all:"全部啱晒！🎉",again:"由頭再做",hm:"揀科目",sc:"而家分數",zoom:"撳一下關閉",undo:"取消答案再做",note:"每題嘅題目指示已翻譯並顯示喺原卷圖片上面，文章同選項保留原文，圖片入面嘅韓文部分會翻譯並顯示喺下面。",
  n:{zh:"中國語 I",ja:"日本語 I",han:"漢文 I"}}};
 const nl=(navigator.language||"ko").toLowerCase();
 let lang=S.lang||(nl.startsWith("ko")?"ko":(nl.includes("hk")||nl.startsWith("yue"))?"yue":nl.startsWith("en")?"en":"en");
@@ -170,9 +171,11 @@ function quiz(){
  ${lang!="ko"&&TR[s.id]&&TR[s.id][q.n]?`<div class="stem tr"><b>${TRT[lang]}</b>\n${TR[s.id][q.n][lang=="en"?0:1]}</div>`:""}
  <div class="ch">${[1,2,3,4,5].map(n=>`<button data-n="${n}" class="${my?(n==q.a?"ok":(n==my?"no":"")):""}" ${my?"disabled":""}>${NUM[n-1]}</button>`).join("")}</div>
  ${my?(my==q.a?`<div class="fb ok">${l.ok(q.p)}</div>`:`<div class="fb no">${l.no(NUM[q.a-1],NUM[my-1])}</div>`):`<div class="c">${l.pick}</div>`}
+ ${my?`<button id="un" class="un">↺ ${l.undo}</button>`:""}
  <div class="nav"><button id="pv" ${i?"":"disabled"}>${l.prev}</button><button id="nx" class="${my?"pri":""}">${i==29?l.res:l.next}</button></div>`;
  const st=document.getElementById("st"),cur=st.querySelector(".cur");st.scrollLeft=cur.offsetLeft-st.clientWidth/2+21;
  $.querySelectorAll(".ch button").forEach(b=>b.onclick=()=>{a[q.n]=+b.dataset.n;save();quiz()});
+ const un=document.getElementById("un");if(un)un.onclick=()=>{delete a[q.n];save();quiz()};
  st.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{view.i=+b.dataset.k;quiz();scrollTo(0,0)});
  document.getElementById("h").onclick=home;
  document.getElementById("pv").onclick=()=>{view.i--;quiz();scrollTo(0,0)};
